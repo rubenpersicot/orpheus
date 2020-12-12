@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-orpheus"
+    }
+  },
+  "defaultProject": "angular-orpheus",
+  "cli": {
+    "analytics": "82bb0e42-c31d-4569-a227-d5558c29801d"
+  }
 }

@@ -1,0 +1,48 @@
+#top_navigation{
+  display: flex;
+  justify-content: flex-end;
+}
+
+tab
+{
+  width: 200px;
+  height: 100px;
+  font-size: 1.5em;
+  font-family: "Arial";
+  color:slategrey;
+  text-align: center;
+  background-color: white;
+  padding-top: 60px;
+  padding-left: 25px;
+  padding-right: 25px;
+  border-bottom: solid white 10px;
+  cursor: pointer;
+}
+
+tab:nth-child(1)
+{
+  font-size: 2.5em;
+  font-weight: bold;
+  color:slategrey;
+  text-align: left;
+  flex: 1;
+}
+
+tab:hover{
+  border-bottom: solid dodgerblue;
+  color:dodgerblue;
+}
+tab:active{
+  outline: none;
+}
+
+.active {
+  outline: none;
+  color:white;
+  background-color: dodgerblue;
+}
+.active:hover {
+  outline: none;
+  color:white;
+  background-color: dodgerblue;
+}
