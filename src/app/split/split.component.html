@@ -1,6 +1,16 @@
 <div class="background">
   <div class="popup">
-    <h1>Orpheus is an app...</h1>
+    
+
+    <a (click)="initiateRecording()" class="btn btn-primary" *ngIf="!recording"> Start Recording </a>
+    <a (click)="stopRecording()" class="btn btn-danger" *ngIf="recording"> Stop Recording </a>
+    <div class="clearfix"></div>
+    <audio controls="" *ngIf="url">
+        <source [src]="sanitize(url)" type="audio/wav">
+    </audio>
+    <a [href]="fileUrl" download = "recordname" *ngIf="recordingDone">Télécharger votre enregistrement</a>
+
+    
 
   </div>
 </div>

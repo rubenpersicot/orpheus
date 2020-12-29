@@ -7,6 +7,7 @@
   background-color:rgba(0,0,0);
 }
 
+
 .popup{
   width:300px;
   position:absolute;
@@ -14,3 +15,8 @@
   top:100px;
   margin-left:-10px;
 }
+
+a{
+  color: white;
+}
+
