@@ -21,6 +21,8 @@ export class SplitComponent implements OnInit {
 
 	public url;
 
+  public recordUrls = [];
+
 	public fileUrl;
 
   constructor(private domSanitizer: DomSanitizer) { 
@@ -64,6 +66,7 @@ export class SplitComponent implements OnInit {
   processRecording(blob) {
   	this.url = URL.createObjectURL(blob);
   	this.fileUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
+    this.recordUrls.push(this.url);
   }
 
 

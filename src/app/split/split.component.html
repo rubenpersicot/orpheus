@@ -2,13 +2,33 @@
   <div class="popup">
     
 
-    <a (click)="initiateRecording()" class="btn btn-primary" *ngIf="!recording"> Start Recording </a>
-    <a (click)="stopRecording()" class="btn btn-danger" *ngIf="recording"> Stop Recording </a>
-    <div class="clearfix"></div>
-    <audio controls="" *ngIf="url">
-        <source [src]="sanitize(url)" type="audio/wav">
-    </audio>
-    <a [href]="fileUrl" download = "recordname" *ngIf="recordingDone">Télécharger votre enregistrement</a>
+    <a (click)="initiateRecording()" *ngIf="!recording"> Start Recording </a>
+    <a (click)="stopRecording()" *ngIf="recording"> Stop Recording </a>
+
+
+    <table>
+    	<thead>
+    		<tr>
+    			<th colspan="2">Recording</th>
+    			<th>Send it ?</th>
+    		</tr>
+    		
+    	</thead>
+
+    	<tbody>
+    		<tr *ngFor = "let recordUrl of recordUrls">
+    			<td> <audio controls="" *ngIf="recordUrl"> <source [src]="sanitize(recordUrl)" type="audio/wav"> </audio>
+    			</td>
+    			<td><a [href]="fileUrl" download = "recordname" *ngIf="recordingDone">Télécharger votre enregistrement</a></td>
+    			<td> <input type="checkbox"> </td>
+
+
+
+
+    	</tbody>
+
+    
+    </table>
 
     
 

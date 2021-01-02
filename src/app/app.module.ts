@@ -9,6 +9,9 @@ import { ProgrammersComponent } from './programmers/programmers.component';
 import { SplitComponent } from './split/split.component';
 import { CreationsComponent } from './creations/creations.component';
 import { ConnexionComponent } from './connexion/connexion.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+ 
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import { ConnexionComponent } from './connexion/connexion.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
