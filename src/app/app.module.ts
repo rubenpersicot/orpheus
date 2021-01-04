@@ -21,7 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProgrammersComponent,
     SplitComponent,
     CreationsComponent,
-    ConnexionComponent
+    ConnexionComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,13 +16,11 @@
     	</thead>
 
     	<tbody>
-    		<tr *ngFor = "let recordUrl of recordUrls">
-    			<td> <audio controls="" *ngIf="recordUrl"> <source [src]="sanitize(recordUrl)" type="audio/wav"> </audio>
+    		<tr *ngFor = "let record of recordArray">
+    			<td> <audio controls="" *ngIf="record.url"> <source [src]="sanitize(record.url)" type="audio/wav"> </audio>
     			</td>
-    			<td><a [href]="fileUrl" download = "recordname" *ngIf="recordingDone">Télécharger votre enregistrement</a></td>
+    			<td><a [href]=downloadRecordingFile(record) *ngIf="recordingDone" download>Download</a></td>
     			<td> <input type="checkbox"> </td>
-
-
 
 
     	</tbody>

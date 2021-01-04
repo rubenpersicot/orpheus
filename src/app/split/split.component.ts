@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as RecordRTC from 'RecordRTC';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Recording } from '../recording';
 
 @Component({
   selector: 'app-split',
@@ -17,13 +18,11 @@ export class SplitComponent implements OnInit {
 
 	private error;
 
-	public recordingDone = false;
+	private recordingDone = false;
 
-	public url;
+  public recordArray: Recording[] = [];
 
-  public recordUrls = [];
-
-	public fileUrl;
+  public sendArray : boolean[];
 
   constructor(private domSanitizer: DomSanitizer) { 
   }
@@ -64,9 +63,22 @@ export class SplitComponent implements OnInit {
   }
 
   processRecording(blob) {
-  	this.url = URL.createObjectURL(blob);
-  	this.fileUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
-    this.recordUrls.push(this.url);
+    let recordEntree: Recording = {
+      id: Date.now(),
+      name: 'recording_'+Date.now().toString(),
+      url: URL.createObjectURL(blob),
+      data: blob,
+      toSend: false
+    };
+
+    this.recordArray.push(recordEntree);
+
+  }
+
+  downloadRecordingFile(record: Recording){
+
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(record.data));
+
   }
 
 
