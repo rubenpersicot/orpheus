@@ -20,7 +20,7 @@
     			<td> <audio controls="" *ngIf="record.url"> <source [src]="sanitize(record.url)" type="audio/wav"> </audio>
     			</td>
     			<td><a [href]=downloadRecordingFile(record) *ngIf="recordingDone" download>Download</a></td>
-    			<td> <input type="checkbox"> </td>
+    			<td> <button (click)="getProcessingToken(record)">Click Here ! </button> </td>
 
 
     	</tbody>

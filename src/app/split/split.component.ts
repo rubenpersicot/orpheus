@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as RecordRTC from 'RecordRTC';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Recording } from '../recording';
+import { RecordingService } from '../recording.service';
+
 
 @Component({
   selector: 'app-split',
@@ -24,7 +26,7 @@ export class SplitComponent implements OnInit {
 
   public sendArray : boolean[];
 
-  constructor(private domSanitizer: DomSanitizer) { 
+  constructor(private domSanitizer: DomSanitizer, private recordingService: RecordingService ) { 
   }
 
   sanitize(url:string){
@@ -79,6 +81,10 @@ export class SplitComponent implements OnInit {
 
     return this.domSanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(record.data));
 
+  }
+
+  getProcessingToken(recording: Recording){
+    this.recordingService.pushRecording(recording).subscribe( (_) => console.log("Sent !"));
   }
 
 
