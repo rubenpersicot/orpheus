@@ -1,12 +1,11 @@
-img{
-  position: relative;
-  left: 650px;
-  top: 100px;
+.mainpic{
+  display:flex;
+  justify-content: center;
+  align-items: center; 
 }
 
 .background{
   position:fixed;
-  z-index:999;
   width:100%;
   height:100%;
   background-color: black;

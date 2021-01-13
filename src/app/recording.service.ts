@@ -28,7 +28,7 @@ export class RecordingService {
 
   /** POST : push a recording to be processed */
 
-  pushRecording(recording: Recording): Observable<JSON> {
+  pushRecording(recording: Recording): Observable<Blob> {
 
   	const httpOptions = {
   		headers: new HttpHeaders({
@@ -40,7 +40,7 @@ export class RecordingService {
 
   	fd.append("audio_data", recording["data"])
 
-  	return this.http.post<JSON>(this.processUrl, fd)
+  	return this.http.post<Blob>(this.processUrl, fd)
   }
 
 

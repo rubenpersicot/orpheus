@@ -1,9 +1,8 @@
 <div class="background">
   <div class="popup">
-    
 
-    <a (click)="initiateRecording()" *ngIf="!recording"> Start Recording </a>
-    <a (click)="stopRecording()" *ngIf="recording"> Stop Recording </a>
+    <button class="notRec" (click)="initiateRecording()" *ngIf="!recording"></button>
+    <button class="Rec" (click)="stopRecording()" *ngIf="recording"></button>
 
 
     <table>
