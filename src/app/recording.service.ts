@@ -17,12 +17,11 @@ export class RecordingService {
   /** POST :D push a recording to be processed */
 
   pushRecording(record: Recording): Observable<JSON> {
-
     const fd = new FormData();
 
     fd.append('audio_data', record['data']);
 
-    const spleeterArg: string = record["stems"]+record["cutoff"];
+    const spleeterArg: string = record['stems'] + record['cutoff'];
 
     fd.append('settings', spleeterArg);
 

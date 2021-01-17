@@ -3,9 +3,9 @@
     <button
       class="notRec"
       (click)="initiateRecording()"
-      *ngIf="!recording"
+      *ngIf="!isRecording"
     ></button>
-    <button class="Rec" (click)="stopRecording()" *ngIf="recording"></button>
+    <button class="Rec" (click)="stopRecording()" *ngIf="isRecording"></button>
 
     <table>
       <thead>
@@ -27,23 +27,26 @@
               [href]="downloadRecordingFile(record)"
               *ngIf="recordingDone"
               download
-              >Download</a>
+              >Download</a
+            >
           </td>
 
           <select [(ngModel)]="record.stems" required>
-            <optgroup label = "Please select the number of stems you want">
-            <option *ngFor="let option of stemOptions">{{stemText[option]}}</option>
+            <optgroup label="Please select the number of stems you want">
+              <option *ngFor="let option of stemOptions">
+                {{ stemText[option] }}
+              </option>
             </optgroup>
           </select>
-           
+
           <td>
-
-          <select [(ngModel)]="record.cutoff" required>
-            <optgroup label = "Please select the number of stems you want">
-            <option *ngFor="let option of cutoffOptions">{{cutoffText[option]}}</option>
-
-          </select>
-       
+            <select [(ngModel)]="record.cutoff" required>
+              <optgroup label="Please select the number of stems you want">
+                <option *ngFor="let option of cutoffOptions">
+                  {{ cutoffText[option] }}
+                </option>
+              </optgroup>
+            </select>
           </td>
 
           <td>
