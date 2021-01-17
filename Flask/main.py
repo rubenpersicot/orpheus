@@ -1,49 +1,52 @@
-from flask import Flask, request, send_file
-from flask_cors import CORS, cross_origin
-from flask_restful import Resource, Api
-from json import dumps
-from flask_jsonpify import jsonify
-import wave 
+"""Backend of the app."""
+import os
 import tempfile
+from flask import Flask, request, send_file
+from flask_cors import CORS
+from flask_restful import Api
 from spleeter.separator import Separator
 
-import os
-currentpath = os.path.dirname(os.path.abspath(__file__))
-audio_path = currentpath + "/tmp/audio"
-
-print(currentpath)
-
-
+current_path = os.path.dirname(os.path.abspath(__file__))
+audio_path = current_path + "/tmp/audio"
 
 app = Flask(__name__)
 api = Api(app)
 
 CORS(app)
 
-@app.route("/process", methods = ['GET', 'POST'])
+
+@app.route("/process", methods=['GET', 'POST'])
 def retrieve():
-	if (request.method == 'POST'):
+    """Create separator and return associated token."""
+    # To be modified to create a token and associate it?
+    if request.method == 'POST':
+        audio_data = request.files["audio_data"]
+        number_of_stems = request.form["stems"]
 
-		audio_data = request.files["audio_data"]
-		audio_bytes = audio_data.read()
-		temp, pathname = tempfile.mkstemp()
-		print(pathname)
+        audio_bytes = audio_data.read()
+        path_name = tempfile.mkstemp()[1]
 
-		with open(pathname, mode='wb') as f:
-		 	f.write(audio_bytes)
+        with open(path_name, mode='wb') as file:
+            file.write(audio_bytes)
 
-		separator = Separator('spleeter:2stems')	
-		separator.separate_to_file(pathname, audio_path)
+        separate_command = 'spleeter:' + number_of_stems + 'stems'
+        separator = Separator(separate_command)
+        separator.separate_to_file(path_name, audio_path)
 
-		separated_audio_location = os.path.basename(os.path.normpath(pathname))
+        separated_audio_location = os.path.basename(os.path.normpath(path_name))
+        vocals_path = audio_path + '/' + separated_audio_location + '/vocals.wav'
 
-		vocalsPath = audio_path+"/"+separated_audio_location+"/vocals.wav"	 
+        response = send_file(vocals_path)
+        return response  # should return token to be created...
+    return False  # just for pylint, need to return something at all times
 
-		print(vocalsPath)
 
-		response = send_file(vocalsPath)
-		
-		return response
+@app.route('/process/<int:token')
+def send_audio():
+    """Send audio to the frontend."""
+    # how to come back to vocals_path in a nice way??
+    return True  # again, just to return something for pylint
+
 
 if __name__ == '__main__':
-   app.run(port=5002)
+    app.run(port=5002)
