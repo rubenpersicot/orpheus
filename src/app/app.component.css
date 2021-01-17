@@ -1,15 +1,14 @@
-#top_navigation{
+#top_navigation {
   display: flex;
   justify-content: flex-end;
 }
 
-tab
-{
+tab {
   width: 200px;
   height: 100px;
   font-size: 1.5em;
   font-family: "Arial";
-  color:slategrey;
+  color: slategrey;
   text-align: center;
   background-color: white;
   padding-top: 60px;
@@ -19,30 +18,29 @@ tab
   cursor: pointer;
 }
 
-tab:nth-child(1)
-{
+tab:nth-child(1) {
   font-size: 2.5em;
   font-weight: bold;
-  color:slategrey;
+  color: slategrey;
   text-align: left;
   flex: 1;
 }
 
-tab:hover{
+tab:hover {
   border-bottom: solid dodgerblue;
-  color:dodgerblue;
+  color: dodgerblue;
 }
-tab:active{
+tab:active {
   outline: none;
 }
 
 .active {
   outline: none;
-  color:white;
+  color: white;
   background-color: dodgerblue;
 }
 .active:hover {
   outline: none;
-  color:white;
+  color: white;
   background-color: dodgerblue;
 }

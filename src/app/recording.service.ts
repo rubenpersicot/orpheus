@@ -1,47 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Recording } from './recording';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RecordingService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   testString: JSON;
-  url: string = "http://127.0.0.1:5002/"
-  processUrl: string = "http://127.0.0.1:5002/process"
+  url = 'http://127.0.0.1:5002/';
+  processUrl = 'http://127.0.0.1:5002/process';
 
-  getStringFromServer(): Observable<JSON>{
-  	return this.http.get<JSON>(this.url);
+  /** POST :D push a recording to be processed */
+
+  pushRecording(record: Recording): Observable<JSON> {
+
+    const fd = new FormData();
+
+    fd.append('audio_data', record['data']);
+
+    const spleeterArg: string = record["stems"]+record["cutoff"];
+
+    fd.append('settings', spleeterArg);
+
+    return this.http.post<JSON>(this.processUrl, fd);
   }
-
-  sendStringToServer(text2send: string): Observable<JSON>{
-  	
-  	
-
-  	return this.http.post<JSON>(this.url, JSON.parse('{"value":true}') );
-  }
-
-  /** POST : push a recording to be processed */
-
-  pushRecording(recording: Recording): Observable<Blob> {
-
-  	const httpOptions = {
-  		headers: new HttpHeaders({
-  			'Content-Type': 'multipart/form-data'
-  		})
-  	}
-
-  	var fd = new FormData();
-
-  	fd.append("audio_data", recording["data"])
-
-  	return this.http.post<Blob>(this.processUrl, fd)
-  }
-
-
 }

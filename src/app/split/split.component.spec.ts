@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-
 import { SplitComponent } from './split.component';
 
 describe('SplitComponent', () => {
@@ -9,9 +8,8 @@ describe('SplitComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SplitComponent ]
-    })
-    .compileComponents();
+      declarations: [SplitComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

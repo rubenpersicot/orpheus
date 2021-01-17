@@ -1,33 +1,56 @@
 <div class="background">
   <div class="popup">
-
-    <button class="notRec" (click)="initiateRecording()" *ngIf="!recording"></button>
+    <button
+      class="notRec"
+      (click)="initiateRecording()"
+      *ngIf="!recording"
+    ></button>
     <button class="Rec" (click)="stopRecording()" *ngIf="recording"></button>
 
-
     <table>
-    	<thead>
-    		<tr>
-    			<th colspan="2">Recording</th>
-    			<th>Send it ?</th>
-    		</tr>
-    		
-    	</thead>
+      <thead>
+        <tr>
+          <th colspan="2">Recording</th>
+          <th>Send it ?</th>
+        </tr>
+      </thead>
 
-    	<tbody>
-    		<tr *ngFor = "let record of recordArray">
-    			<td> <audio controls="" *ngIf="record.url"> <source [src]="sanitize(record.url)" type="audio/wav"> </audio>
-    			</td>
-    			<td><a [href]=downloadRecordingFile(record) *ngIf="recordingDone" download>Download</a></td>
-    			<td> <button (click)="getProcessingToken(record)">Click Here ! </button> </td>
+      <tbody>
+        <tr *ngFor="let record of recordArray">
+          <td>
+            <audio controls="" *ngIf="record.url">
+              <source [src]="sanitize(record.url)" type="audio/wav" />
+            </audio>
+          </td>
+          <td>
+            <a
+              [href]="downloadRecordingFile(record)"
+              *ngIf="recordingDone"
+              download
+              >Download</a>
+          </td>
 
+          <select [(ngModel)]="record.stems" required>
+            <optgroup label = "Please select the number of stems you want">
+            <option *ngFor="let option of stemOptions">{{stemText[option]}}</option>
+            </optgroup>
+          </select>
+           
+          <td>
 
-    	</tbody>
+          <select [(ngModel)]="record.cutoff" required>
+            <optgroup label = "Please select the number of stems you want">
+            <option *ngFor="let option of cutoffOptions">{{cutoffText[option]}}</option>
 
-    
+          </select>
+       
+          </td>
+
+          <td>
+            <button (click)="getProcessingToken(record)">Click Here !</button>
+          </td>
+        </tr>
+      </tbody>
     </table>
-
-    
-
   </div>
 </div>

@@ -9,11 +9,9 @@ import { ProgrammersComponent } from './programmers/programmers.component';
 import { SplitComponent } from './split/split.component';
 import { CreationsComponent } from './creations/creations.component';
 import { ConnexionComponent } from './connexion/connexion.component';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-
- 
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,9 +27,10 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

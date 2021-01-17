@@ -1,23 +1,22 @@
 /* Background style */
-.background{
-  position:fixed;
-  z-index:999;
-  width:100%;
-  height:100%;
+.background {
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
   background-color: black;
 }
 
 /* Container properties */
-#container
-{
+#container {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
 /* Style the tool */
-.tool{
-  position:relative;
+.tool {
+  position: relative;
   top: 200px;
   width: 400px;
   height: 400px;
@@ -27,59 +26,58 @@
 }
 
 /* Style the front of the tool */
-.tool-front{
+.tool-front {
   position: absolute;
-  top:50px;
-  left:50px;
-  visibility:visible;
+  top: 50px;
+  left: 50px;
+  visibility: visible;
 }
 
 /* Style the back of the tool */
-.tool-back{
-  position:absolute;
-  visibility:hidden;
-  text-align:center;
-  top:50px;
-  padding:10px;
+.tool-back {
+  position: absolute;
+  visibility: hidden;
+  text-align: center;
+  top: 50px;
+  padding: 10px;
 }
 
 /* Style the name */
-h1{
+h1 {
   font-size: 2em;
   font-family: "Arial";
   color: dodgerblue;
 }
 
 /* Style the description */
-p{
+p {
   font-size: 1.5em;
   font-family: "Arial";
   color: dodgerblue;
 }
 
 /* Style the link*/
-a{
-  color:grey;
+a {
+  color: grey;
 }
 
-a:visited{
-  color:grey;
+a:visited {
+  color: grey;
 }
 
-a:hover{
+a:hover {
   color: dodgerblue;
 }
 
-.tool:hover{
-  transform: scale(1.2,1.2);
+.tool:hover {
+  transform: scale(1.2, 1.2);
   transition: transform 0.4s;
 }
 
-.tool:hover .tool-front{
-  visibility:hidden;
+.tool:hover .tool-front {
+  visibility: hidden;
 }
 
-.tool:hover .tool-back{
-  visibility:visible;
+.tool:hover .tool-back {
+  visibility: visible;
 }
-
