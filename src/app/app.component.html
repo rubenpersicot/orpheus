@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>TDLOG PROJECT</title>
-  </head>
-  <body>
-    <div id="top_navigation">
-      <tab routerLink="/home" routerLinkActive="active"
-        >ORPHEUS - A TDLOG Project</tab
-      >
-      <tab routerLink="/presentation" routerLinkActive="active"
-        >What is Orpheus ?</tab
-      >
-      <tab routerLink="/programmers" routerLinkActive="active"
-        >Who are we ?</tab
-      >
-      <tab routerLink="/split" routerLinkActive="active">Let's split !</tab>
-      <tab routerLink="/creations" routerLinkActive="active">My creations</tab>
-      <tab routerLink="/connexion" routerLinkActive="active">Connexion</tab>
-    </div>
-  </body>
-  <router-outlet></router-outlet>
+<head>
+  <meta charset="utf-8"/>
+  <title>TDLOG PROJECT</title>
+</head>
+<body>
+<!--Top bar navigation with routing-->
+<div id="top_navigation">
+  <tab routerLink="/home" routerLinkActive="active">ORPHEUS - A TDLOG Project</tab>
+  <tab routerLink="/presentation" routerLinkActive="active">What is Orpheus ?</tab>
+  <tab routerLink="/programmers" routerLinkActive="active">Who are we ?</tab>
+  <tab routerLink="/split" routerLinkActive="active" >Let's split !</tab>
+</div>
+</body>
+<!--Command for routing-->
+<router-outlet></router-outlet>
 </html>
+
+
