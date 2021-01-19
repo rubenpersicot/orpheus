@@ -1,36 +1,30 @@
 <div class="background">
-  <div class="popup">
-    <button
-      class="notRec"
-      (click)="initiateRecording()"
-      *ngIf="!isRecording"
-    ></button>
+  <!--Recording button-->
+  <h1>CLICK HERE TO RECORD</h1>
+  <div class="rec_button">
+    <button class="notRec" (click)="initiateRecording()" *ngIf="!isRecording"></button>
     <button class="Rec" (click)="stopRecording()" *ngIf="isRecording"></button>
-
-    <table>
-      <thead>
-        <tr>
-          <th colspan="2">Recording</th>
-          <th>Send it ?</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr *ngFor="let record of recordArray">
-          <td>
-            <audio controls="" *ngIf="record.url">
-              <source [src]="sanitize(record.url)" type="audio/wav" />
-            </audio>
-          </td>
-          <td>
-            <a
-              [href]="downloadRecordingFile(record)"
-              *ngIf="recordingDone"
-              download
-              >Download</a
-            >
-          </td>
-
+  </div>
+  <!--Head of the popup tab-->
+  <div class="popup_head">
+      <div class="column-head"><h2>Here is your recording</h2></div>
+      <div class="column-head"><h2>Choose the number of stems</h2></div>
+      <div class="column-head"><h2>Select the cutoff</h2></div>
+      <div class="column-head"><h2>Send it !</h2></div>
+  </div>
+  <!--Body of the popup tab,
+  each time the recording button is pressed, a new line appears below the others-->
+  <div class="popup_body">
+    <popup-loop *ngFor="let record of recordArray">
+      <div class="popup_line">
+        <!--Cell containing the recording-->
+        <div class="cell">
+          <audio controls="" *ngIf="record.url">
+            <source [src]="sanitize(record.url)" type="audio/wav" />
+          </audio>
+        </div>
+        <!--Cell requiring a user input regarding stem options-->
+        <div class="cell">
           <select [(ngModel)]="record.stems" required>
             <optgroup label="Please select the number of stems you want">
               <option *ngFor="let option of stemOptions">
@@ -38,22 +32,23 @@
               </option>
             </optgroup>
           </select>
-
-          <td>
-            <select [(ngModel)]="record.cutoff" required>
-              <optgroup label="Please select the number of stems you want">
-                <option *ngFor="let option of cutoffOptions">
-                  {{ cutoffText[option] }}
-                </option>
-              </optgroup>
-            </select>
-          </td>
-
-          <td>
-            <button (click)="getProcessingToken(record)">Click Here !</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        </div>
+        <!--Cell requiring a user input regarding cutoff options-->
+        <div class="cell">
+          <select [(ngModel)]="record.cutoff" required>
+            <optgroup label="Please select cutoff you want">
+              <option *ngFor="let option of cutoffOptions">
+                {{ cutoffText[option] }}
+              </option>
+            </optgroup>
+          </select>
+        </div>
+        <!--Cell containing the button to send the recording-->
+        <div class="cell">
+          <token_button (click)="getProcessingToken(record)">Click Here !</token_button>
+        </div>
+      </div>
+    </popup-loop>
   </div>
 </div>
+
