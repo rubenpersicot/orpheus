@@ -1,0 +1,85 @@
+/* Style the background*/
+.background{
+  display:flex;
+  height:700px;
+  background-color:black;
+  padding-left: 25px;
+  padding-right: 25px;
+  justify-content:space-around;
+  align-items:center;
+}
+/* Style the round card*/
+.card{
+  height:400px;
+  width:400px;
+  border:5px solid dodgerblue;
+  border-radius:50%
+}
+/* Style the front of the card*/
+.card-front{
+  height:inherit;
+  width:inherit;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+/* Style the back of the card*/
+.card-back{
+  position:absolute;
+  visibility:hidden;
+  text-align:center;
+  top:50px;
+  padding:10px;
+}
+/* Set the transformation and the animation when hovering over the card*/
+.card:hover{
+  transform: scale(1.2,1.2);
+  transition: transform 0.4s;
+  animation-name: pulse;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+/*Configure parameters for the animation*/
+@keyframes pulse {
+  0% {
+    box-shadow: 0px 0px 5px 0px rgba(30, 144, 255, 1);
+  }
+  60% {
+    box-shadow: 0px 0px 5px 13px rgba(30, 144, 255, 0.4);
+  }
+  90% {
+    box-shadow: 0px 0px 5px 13px rgba(30, 144, 255, 0.1);
+  }
+}
+/*Manage which face of the card is visible depending on where is the mouse*/
+.card:hover .card-front{
+  visibility:hidden;
+}
+/*Manage which face of the card is visible depending on where is the mouse*/
+.card:hover .card-back{
+  visibility:visible;
+}
+/* Style the name */
+h1{
+  font-size: 2em;
+  font-family: "Arial";
+  color: dodgerblue;
+}
+/* Style the description */
+p{
+  font-size: 1.5em;
+  font-family: "Arial";
+  color: dodgerblue;
+}
+/* Style the link and the user-interactions*/
+a{
+  color:grey;
+}
+a:visited{
+  color:grey;
+}
+a:hover{
+  color: white;
+}
