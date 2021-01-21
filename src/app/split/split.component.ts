@@ -35,9 +35,9 @@ export class SplitComponent implements OnInit {
     '5stems': '5 stems : Vocal + Drum + Bass + Piano + Accompaniement',
   };
 
-  private cutoffOptions = ['', '16kHz'];
+  private cutoffOptions = ['', '-16kHz'];
 
-  private cutoffText = { '': '11kHz', '16kHz': '-16kHz' };
+  private cutoffText = { '': '11kHz', '-16kHz': '16kHz' };
 
   private record: any;
 
@@ -139,6 +139,7 @@ export class SplitComponent implements OnInit {
       .subscribe((token) => this.handleToken(record, token));
   }
 
+ 
   /**
    * Process the token with simple error handling for now. Puts the token in the record interface.
    * @param {Recording} record recording associated to the token
