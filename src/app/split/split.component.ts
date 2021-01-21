@@ -153,5 +153,15 @@ export class SplitComponent implements OnInit {
     }
   }
 
+
+  downloadSeparatedFiles(record: Recording, token: string): any {
+    console.log(token)
+    this.recordingService.getZipFile(token).subscribe( (data) => this.getZipFile(data))
+  }
+
+  getZipFile(data: any) {
+    console.log("pouet")
+  }
+
   ngOnInit(): void {}
 }

@@ -11,10 +11,9 @@ export class RecordingService {
   constructor(private http: HttpClient) {}
 
   testString: JSON;
-  url = 'http://127.0.0.1:5002/';
-  processUrl = 'http://127.0.0.1:5002/process';
-  downloadUrl = 'http://127.0.0.1:5002/download/';
-
+  url = 'http://127.0.0.1:5003/';
+  processUrl = 'http://127.0.0.1:5003/process';
+  downloadUrl = 'http://127.0.0.1:5003/download';
   /** POST :D push a recording to be processed */
 
   pushRecording(record: Recording): Observable<JSON> {
@@ -31,16 +30,20 @@ export class RecordingService {
 
   getResponse(token): Observable<JSON> {
 
-    const tokenUrl = this.processUrl+token;
+    const tokenUrl = this.processUrl + "/" + token;
 
     return this.http.get<JSON>(tokenUrl);
   }
 
   getZipFile(token): Observable<ArrayBuffer> {
 
-    const zipUrl = this.downloadUrl + token;
+    const httpOptionsZip = {headers: new HttpHeaders().set('content-type', 'application/zip')}
 
-    return this.http.get<ArrayBuffer>(zipUrl);
+    const zipUrl = this.downloadUrl + "/" +token;
+
+    console.log("pouet")
+
+    return this.http.get<ArrayBuffer>(zipUrl,  httpOptionsZip);
   }
 
 }
