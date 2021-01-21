@@ -1,35 +1,30 @@
-/*Style the background*/
+/* Style the background*/
 .background{
-  position:fixed;
-  z-index:999;
-  width:100%;
-  height:100%;
-  background-color: black;
+  display:flex;
+  height:700px;
+  background-color:black;
+  padding-left: 25px;
+  padding-right: 25px;
+  justify-content:space-around;
+  align-items:center;
 }
-/* Set the container properties */
-#container
-{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-/* Style the card */
+/* Style the round card*/
 .card{
-  position:relative;
-  top: 150px;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  border: 5px solid dodgerblue;
-  background: black;
+  height:400px;
+  width:400px;
+  border:5px solid dodgerblue;
+  border-radius:50%;
 }
-/* Style the front of the card */
+/* Style the front of the card*/
 .card-front{
-  position: absolute;
-  visibility:visible;
-  background-color: transparent;
+  height:inherit;
+  width:inherit;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
 }
-/* Style the back of the card */
+/* Style the back of the card*/
 .card-back{
   position:absolute;
   visibility:hidden;
@@ -37,28 +32,7 @@
   top:50px;
   padding:10px;
 }
-/* Style the name */
-h1{
-  font-size: 2em;
-  font-family: "Arial";
-  color: grey;
-}
-/* Style the description */
-p{
-  font-size: 1.5em;
-  font-family: "Arial";
-  color: dodgerblue;
-}
-/* Style the link and the user-interactions*/
-a{
-  color:grey;
-}
-a:visited{
-  color:grey;
-}
-a:hover{
-  color: dodgerblue;
-}
+/* Set the transformation and the animation when hovering over the card*/
 .card:hover{
   transform: scale(1.2,1.2);
   transition: transform 0.4s;
@@ -87,4 +61,29 @@ a:hover{
 .card:hover .card-back{
   visibility:visible;
 }
-
+/* Style the name */
+h1{
+  font-size: 2em;
+  font-family: "Arial";
+  color: dodgerblue;
+}
+/* Style the description */
+p{
+  font-size: 1.5em;
+  font-family: "Arial";
+  color: dodgerblue;
+}
+/* Style the link and the user-interactions*/
+a{
+  color:grey;
+}
+a:visited{
+  color:grey;
+}
+a:hover{
+  color: white;
+}
+.description{
+  position: absolute;
+  top:200px;
+ }
