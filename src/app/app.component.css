@@ -4,43 +4,38 @@
   justify-content: flex-end;
 }
 /*Style all tabs*/
-tab
-{
-  width: 10%;
+.tab {
   height: 100px;
+  width: 10%;
+  padding:1%;
   font-size: 1.5em;
-  font-family: "Arial";
+  font-family: "Arial", serif;
   color:slategrey;
   text-align: center;
   background-color: white;
-  padding-top: 60px;
-  padding-left: 25px;
-  padding-right: 25px;
   border-bottom: solid white 10px;
   cursor: pointer;
 }
 /*Style the first tab*/
-tab:nth-child(1)
-{
+.tab:nth-child(1) {
   flex: 1;
   font-size: 2.5em;
   font-weight: bold;
-  color:slategrey;
   text-align: left;
 }
 /*Style tabs when the mouse is over them*/
-tab:hover{
+.tab:hover{
   border-bottom: solid dodgerblue;
   color:dodgerblue;
 }
 /*Style tabs when they are active*/
-.active, tab.active, active:hover{
+.active, .tab.active{
   outline: none;
   color:white;
   background-color: dodgerblue;
 }
 /*Prevent an ugly border from appearing*/
-tab:active{
+.tab:active{
   outline: none;
 }
 
