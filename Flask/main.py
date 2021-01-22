@@ -1,22 +1,25 @@
-from flask import Flask, request, send_file, jsonify
-from flask_cors import CORS, cross_origin
-from flask_restful import Resource, Api
-from tasks import separateAudio
-import tempfile
-from spleeter.separator import Separator
-import multiprocessing as mp 
-import zipfile
+"""
+Back-end of the Orpheus website, part of the TDLog project.
+Authors: Alice Gribonval
+         Louis Reine
+         Ruben Persicot
+"""
 
 import os
+import multiprocessing as mp
+import zipfile
+import tempfile
 
-currentpath = os.path.dirname(os.path.abspath(__file__))
-audio_path = currentpath + "/tmp/audio/"
-res_path = currentpath + "/tmp/res_process/"
-zip_path = currentpath + "/tmp/zip/"
-
-print(currentpath)
+from flask import Flask, request, send_file, jsonify
+from flask_cors import CORS
+from flask_restful import Api
+from spleeter.separator import Separator
 
 
+current_path = os.path.dirname(os.path.abspath(__file__))
+audio_path = current_path + "/tmp/audio/"
+res_path = current_path + "/tmp/res_process/"
+zip_path = current_path + "/tmp/zip/"
 
 app = Flask(__name__)
 api = Api(app)
@@ -29,92 +32,71 @@ processing_queue = {}
 
 paths_token = PathManager.dict()
 
-def isAvailable(token):
-	'''Check if the files associated to this token exists
-	
-	Arguments:
-		token {[string]} -- [the file's token]
-	
-	Returns:
-		[bool] -- [true if exist, false otherwise]
-	'''
-	if processing_queue:
-		return processing_queue[token].is_alive()
-	return True
 
-def zipdir(path, ziph):
-    # ziph is zipfile handle
-    print(path)
+def is_available(token):
+    """Return True if token is available, False otherwise."""
+    if processing_queue:
+        return processing_queue[token].is_alive()
+    return True
+
+
+def zip_dir(path, zip_h):
+    """Create zip folder containing all elements at given path."""
     for root, dirs, files in os.walk(path):
         for file in files:
-            ziph.write(os.path.join(root, file), os.path.relpath(os.path.join(root, file), os.path.join(path, '..')))
-
-def separateAudio(path_to_audio_file, path_to_ouput_directory, spleeter_argument, token, paths_token):
-	separator = Separator("spleeter:2stems")	
-	separator.separate_to_file(path_to_audio_file, res_path, synchronous=True)
-
-	path_to_output_zip_file = zip_path+f'{token}.zip'
-	paths_token[token] = path_to_output_zip_file
-	print(path_to_output_zip_file)
-
-	zipf = zipfile.ZipFile(path_to_output_zip_file, 'w', zipfile.ZIP_DEFLATED)
-	zipdir(res_path+token, zipf)
-
-	
+            zip_h.write(os.path.join(root, file),
+                        os.path.relpath(os.path.join(root, file), os.path.join(path, '..')))
 
 
+def separate_audio(spleeter_arg, path_to_audio_file, token, paths_token):
+    """Separate audio files associated to the token using spleeter"""
+    separator = Separator(spleeter_arg)
+    separator.separate_to_file(path_to_audio_file, res_path, synchronous=True)
+
+    path_to_output_zip_file = zip_path + f'{token}.zip'
+    paths_token[token] = path_to_output_zip_file
+
+    zip_f = zipfile.ZipFile(path_to_output_zip_file, 'w', zipfile.ZIP_DEFLATED)
+    zip_dir(res_path + token, zip_f)
 
 
-		# path_to_audio_file : path to the direct byte file
-		# audio_path : path to the foler containing all folders where processing is done
-		# token : the name of the byte file
-		# then audio_path + "/" + token = path to folder where the processing is done for the token file. 
-
-
-@app.route('/process', methods = ['GET', 'POST'])
+@app.route('/process', methods=['POST'])
 def process():
-	if (request.method == 'POST'):
-		audio_data = request.files["audio_data"]
-		audio_bytes = audio_data.read()
-		token = ''
+    """Start processing or queuing and return associated token."""
+    audio_data = request.files["audio_data"]
+    audio_bytes = audio_data.read()
+    spleeter_arg = request.files["settings"]
 
-		print("ok")
+    path_to_temp_file = tempfile.mkstemp(dir=audio_path)[1]
 
-		temp_os_object, path_to_temp_file = tempfile.mkstemp(dir=audio_path) # placing the file in the audio folder
+    token = os.path.basename(path_to_temp_file)
 
-		token = os.path.basename(path_to_temp_file)
-		
-		with open(path_to_temp_file, mode='wb') as f:
-		 	f.write(audio_bytes)
-		
-		processing_queue[token] = mp.Process(target=separateAudio, args=(path_to_temp_file, res_path, "spleeter:2stems", token, paths_token)) # Separating the tempfile in the res_process folder and zipping it to the zip folder
+    with open(path_to_temp_file, mode='wb') as file:
+        file.write(audio_bytes)
 
-		print(processing_queue)
+    processing_queue[token] = mp.Process(target=separate_audio,
+                                         args=(path_to_temp_file, res_path,
+                                               spleeter_arg, token,
+                                               paths_token))
 
-		processing_queue[token].start()
+    processing_queue[token].start()
 
+    return jsonify(value=token)
 
-		return jsonify(value=token)
 
 @app.route('/process/<token>')
 def process_token(token):
-	if(request.method == 'GET'):
-		
-		return jsonify(isAvailable=isAvailable(token))
+    """Return json stating if files with associated token are available."""
+    return jsonify(isAvailable=is_available(token))
+
 
 @app.route('/download/<token>')
 def retrieve(token):
-	if(request.method == 'GET'):
-		if os.path.isfile(paths_token[token]):
-			return send_file(paths_token[token], mimetype = 'application/zip')
-
-
-
-
-
+    """Send file for download."""
+    if os.path.isfile(paths_token[token]):
+        return send_file(paths_token[token], mimetype='application/zip')
+    # should return something else if not os.path.isfile(paths_token[token])
 
 
 if __name__ == '__main__':
-   app.run(port=5003)
-
-
+    app.run(port=5003)
