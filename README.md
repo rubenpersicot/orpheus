@@ -3,7 +3,7 @@
 
 Orpheus is a website dedicated to musicians. Starting from an audio file composed of different sources, the website is able to split the initial recording in several files, each one of them containing a different source. For exemple, if the input is a recording of a singer playing the guitar, Orpheus outputs two audio files. The first one only contains the voice of the singer whereas the second one only contains the sound of the guitar. 
 
-This site is named after [Orpheus](https://en.wikipedia.org/wiki/Orpheus),a legendary musician and poet in ancient Greek religion.
+This site is named after [Orpheus](https://en.wikipedia.org/wiki/Orpheus), a legendary musician and poet in ancient Greek religion.
 
 ## Technologies 
 ### Front-end
