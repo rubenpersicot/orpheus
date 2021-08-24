@@ -1,5 +1,5 @@
 # Orpheus
-[Orpheus](https://github.com/rubenpersicot/orpheus) is an academic project, it is part of the "Sofware development and design" course taught at the [Ecole des Ponts Paristech](https://www.ecoledesponts.fr/en) by Xavier Leclerc.
+The project [orpheus](https://github.com/rubenpersicot/orpheus) is part of the "Sofware development and design" course taught at the [Ecole des Ponts Paristech](https://www.ecoledesponts.fr/en) by Xavier Leclerc.
 
 Orpheus is a website dedicated to musicians. Starting from an audio file composed of different sources, the website is able to split the initial recording in several files, each one of them containing a different source. For exemple, if the input is a recording of a singer playing the guitar, Orpheus outputs two audio files. The first one only contains the voice of the singer whereas the second one only contains the sound of the guitar. 
 
